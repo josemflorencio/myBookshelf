@@ -9,14 +9,14 @@ class OpenLibraryAPI:
     def get_book(self, isbn: str):
         info = {}
 
-        #get the book info
+        # get the book info
         response = requests.get(self.baseurl + f"{isbn}.json")
 
-        #error handling
+        # error handling
         if response.status_code != 200:
             return None
 
-        #parse the response
+        # parse the response
         response = response.json()
         if response.get('authors') is None:
             return None
