@@ -15,7 +15,7 @@ class OpenLibraryAPI:
 
         info['authors'] = self.get_authors(author_key)
         info['title'] = response.get('title')
-        info['cover'] = response.get('covers')
+        info['cover'] = self.get_covers(response.get('covers')[0])
         info['isbn'] = isbn
 
         return info
@@ -31,7 +31,4 @@ class OpenLibraryAPI:
         url = f"https://covers.openlibrary.org/b/id/{cover_id}-M.jpg"
         response = requests.get(url)
 
-        img = Image.open(BytesIO(response.content))
-        img.show()
-
-        return response.text
+        return response.url
