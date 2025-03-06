@@ -10,5 +10,9 @@ class booksDB:
     def add_book(self, book):
         if book is None:
             return
-        self.cursor.execute("INSERT INTO books VALUES (?, ?, ?, ?)", (book['isbn'], book['title'], book['authors'], book['cover']))
+        self.cursor.execute('INSERT OR IGNORE INTO books VALUES (?,?,?,?)', (book['isbn'], book['title'], book['authors'], book['cover']))
         self.conn.commit()
+
+    def get_book(self, isbn):
+        self.cursor.execute('SELECT * FROM books WHERE isbn=?', (isbn,))
+        return self.cursor.fetchone()
