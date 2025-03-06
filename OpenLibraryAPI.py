@@ -8,11 +8,15 @@ class OpenLibraryAPI:
 
     def get_book(self, isbn: str):
         info = {}
+        #get the book info
+        response = requests.get(self.baseurl + f"{isbn}.json")
 
-        response = requests.get(self.baseurl + f"{isbn}.json").json()
-
+        #error handling
+        if response.status_code != 200:
+            return None
+        #parse the response
+        response = response.json()
         author_key = response.get('authors')[0].get('key').lstrip('/authors')
-
         info['authors'] = self.get_authors(author_key)
         info['title'] = response.get('title')
         info['cover'] = self.get_covers(response.get('covers')[0])
