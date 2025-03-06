@@ -1,5 +1,6 @@
 import sqlite3
 
+
 class booksDB:
     def __init__(self):
         self.conn = sqlite3.connect('books.db')
@@ -10,7 +11,8 @@ class booksDB:
     def add_book(self, book):
         if book is None:
             return
-        self.cursor.execute('INSERT OR IGNORE INTO books VALUES (?,?,?,?)', (book['isbn'], book['title'], book['authors'], book['cover']))
+        self.cursor.execute('INSERT OR IGNORE INTO books VALUES (?,?,?,?)',
+                            (book['isbn'], book['title'], book['authors'], book['cover']))
         self.conn.commit()
 
     def get_book(self, isbn):
